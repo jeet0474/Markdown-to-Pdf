@@ -1,0 +1,156 @@
+/* ========= RESET & LAYOUT ========= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body, #root {
+  height: 100%;
+  background: #3e005a;
+  overflow: hidden;         /* no whole-page scroll */
+  font-family: Arial, sans-serif;
+}
+.app-container {
+  height: calc(100% - 2rem);
+  margin: 1rem;
+  background: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #2A2A2A;      /* updated */
+  color: white;
+  padding: 0.5rem 1rem;
+  flex-shrink: 0;
+}
+.header .logo { font-weight: bold; font-size: 1.2rem; }
+.header button {
+  background: #1db954; border: none; color: white;
+  padding: 0.5rem 1rem; border-radius: 0.25rem;
+  cursor: pointer;
+}
+.main {
+  flex: 1;
+  display: flex;
+  min-height: 0;            /* children scroll properly */
+}
+.editor, .preview {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
+@media (max-width: 768px) {
+  .main { flex-direction: column; }
+  .editor, .preview { height: 50%; }
+}
+
+/* ========= EDITOR ========= */
+.editor {
+  background: #444;
+  color: white;
+  border: none;
+  resize: none;
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ========= PREVIEW ========= */
+.preview {
+  background: #fafafa;
+  color: #090909;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Headings */
+.preview h1 { font-size: 2rem; margin: 1rem 0 0.5rem; }
+.preview h2 { font-size: 1.75rem; margin: 1rem 0 0.5rem; }
+.preview h3 { font-size: 1.5rem; margin: 0.75rem 0 0.5rem; }
+
+/* Paragraphs */
+.preview p { margin: 0.5rem 0; }
+
+/* Lists */
+.preview ul, .preview ol {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+}
+.preview li { margin: 0.25rem 0; }
+
+/* Blockquotes */
+.preview blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  color: #555;
+  margin: 0.5rem 0;
+  font-style: italic;
+}
+
+/* Horizontal rule */
+.preview hr {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  margin: 1rem 0;
+}
+
+/* Links */
+.preview a {
+  color: #0366d6;
+  text-decoration: none;
+}
+.preview a:hover { text-decoration: underline; }
+
+/* Images */
+.preview img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+/* Tables */
+.preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1rem;
+}
+.preview th, .preview td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+/* 1) Fenced code blocks: style the pre element */
+.preview pre {
+  background: #2d2d2d;         /* dark background */
+  color: #f8f8f2;              /* light text */
+  font-family: monospace;      /* monospace inside the block */
+  /* padding: 1rem; */
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+/* 2) Code inside those blocks: inherit everything */
+.preview pre code {
+  background: transparent;     /* no extra bg */
+  color: inherit;              /* inherit #f8f8f2 */
+  font-family: inherit;        /* inherit monospace */
+}
+
+/* 3) Everything else that’s a <code>, but not inside <pre> */
+/*    i.e. inline code in paragraphs, lists, etc. */
+.preview code:not(pre code) {
+  background: #e0e0e0;         /* light grey */
+  color: #333;                 /* dark text */
+  font-family: monospace;      /* match block font */
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 0.95em;
+}
