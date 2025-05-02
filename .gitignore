@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/exe for pc
 /.pnp
 .pnp.js
 
