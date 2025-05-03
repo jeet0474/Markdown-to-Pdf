@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import html2pdf from 'html2pdf.js';
+// Removed unused import for 'html2pdf'
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import Header from './components/Header';
@@ -9,7 +9,21 @@ import Preview from './components/Preview';
 import './index.css';
 
 function App() {
-  const [mdText, setMdText] = useState(`# Styled Markdown Example
+  const [mdText, setMdText] = useState(`## 🔸 1. **State-Value Function**: $V^\\pi(s)$
+
+The value of a state $s$ under policy $\\pi$ is the expected return starting from $s$ and following $\\pi$:
+
+$$
+V^\\pi(s) = \\mathbb{E}_\\pi \\left[ \\sum_{t=0}^\\infty \\gamma^t R(s_t, a_t) \\,\\bigg|\\, s_0 = s \\right]
+$$
+
+### 🔹 **Bellman Expectation Equation for $V^\\pi$**
+
+$$
+V^\\pi(s) = \\sum_{a \\in A} \\pi(a|s) \\sum_{s' \\in S} P(s'|s,a) \\left[ R(s,a,s') + \\gamma V^\\pi(s') \\right]
+$$
+
+# Styled Markdown Example
 
 This is a paragraph with *bold* and italic text.
 
@@ -47,6 +61,14 @@ def fibonacci(n):
 squares = [x**2 for x in range(10)]
 \`\`\`
 
+## Bellman Optimality Equation
+
+The Bellman optimality equation for the value function is:
+
+\`\`\`math
+V^*(s) = \\max_{a \\in A} \\sum_{s'} P(s'|s,a) \\left[ R(s,a,s') + \\gamma V^*(s') \\right]
+\`\`\`
+
 ## Blockquote Example
 
 > This is a blockquote.
@@ -70,6 +92,8 @@ squares = [x**2 for x in range(10)]
 
 ![Placeholder Image](https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=80&w=800)
 `);
+
+
 
 const handleGetPDF = async () => {
   const previewEl = document.querySelector('.preview');

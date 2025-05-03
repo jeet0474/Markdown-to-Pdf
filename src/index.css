@@ -154,3 +154,66 @@ html, body, #root {
   border-radius: 0.3rem;
   font-size: 0.95em;
 }
+
+/* ————— KaTeX Base (must come before your overrides) ————— */
+@import "katex/dist/katex.min.css";
+
+/* ————— Inline math in headings ————— */
+/* Scale math slightly smaller inside h1–h3, and lock it to the text baseline */
+.preview h1 .katex.katex-inline,
+.preview h2 .katex.katex-inline,
+.preview h3 .katex.katex-inline {
+  display: inline-block;      /* size to its contents */
+  font-size: 0.9em;           /* a bit smaller so it never overshoots the line */
+  line-height: 1;             /* exactly one line high */
+  vertical-align: baseline;   /* share the same baseline as text */
+  margin: 0 0.05em;           /* tiny gap on either side */
+  color: inherit;             /* keep your heading’s text color */
+}
+
+/* ————— Inline math in paragraphs/lists/etc. ————— */
+/* Use normal size and spacing there */
+.preview p .katex.katex-inline,
+.preview li .katex.katex-inline {
+  display: inline-block;
+  font-size: 1em;
+  line-height: inherit;       /* match .preview’s 1.6 */
+  vertical-align: middle;     /* sit nicely in the flow of text */
+  margin: 0 0.1em;
+  color: inherit;
+}
+
+/* ————— Display math ————— */
+.preview .katex.katex-display {
+  display: block;             
+  text-align: center;         
+  margin: 1.5em 0;            
+  line-height: 1.2;           
+  color: inherit;             
+}
+
+/* ————— Prevent bold “bouncing” everywhere ————— */
+
+/* 1) Force bold to use the same line-height & baseline as surrounding text */
+.preview strong,
+.preview b {
+  line-height: inherit !important;       /* never change the height of its line box */
+  vertical-align: baseline !important;   /* sit flush on the same text baseline */
+  display: inline-block !important;      /* avoid font-weight reflow glitches */
+  margin: 0 !important;                  /* remove any browser default offsets */
+  padding: 0 !important;
+  color: inherit !important;             /* don’t introduce color shifts */
+  font-weight: bold !important;          /* make absolutely sure it’s bold */
+}
+
+/* 2) (Optional) Nudge bold down if it still sits high */
+.preview strong,
+.preview b {
+  transform: translateY(0.002em) !important; /* tweak as needed: 0.01–0.05em */
+}
+
+/* 3) Ensure headings themselves have an explicit numeric line-height */
+/*    so nothing—bold or math—can cause them to jump */
+.preview h1 { line-height: 1.25 !important; }  /* example: 2rem font / 2.5rem line */
+.preview h2 { line-height: 1.2  !important; }  /* example: 1.75rem font / 2.1rem line */
+.preview h3 { line-height: 1.15 !important; }  /* example: 1.5rem font / 1.725rem line */
