@@ -93,7 +93,7 @@ V^*(s) = \\max_{a \\in A} \\sum_{s'} P(s'|s,a) \\left[ R(s,a,s') + \\gamma V^*(s
 ![Placeholder Image](https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=80&w=800)
 `);
 
-
+const [pdfName, setPdfName] = useState('');
 
 const handleGetPDF = async () => {
   const previewEl = document.querySelector('.preview');
@@ -134,14 +134,20 @@ const handleGetPDF = async () => {
 
   // 7) Draw the image at full size and save
   pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-  pdf.save('markdown-fullscreen.pdf');
+  // pdf.save('markdown-fullscreen.pdf');
+  const filename = (pdfName.trim() || 'markdown to pdf') + '.pdf';
+  pdf.save(filename);
 };
 
 
 
   return (
     <div className="app-container">
-      <Header onGetPDF={handleGetPDF} />
+      <Header
+        onGetPDF={handleGetPDF}
+        pdfName={pdfName}
+        setPdfName={setPdfName}
+      />
       <div className="main">
         <Editor value={mdText} onChange={setMdText} />
         <Preview markdown={mdText} />
