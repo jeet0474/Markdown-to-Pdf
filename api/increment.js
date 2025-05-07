@@ -1,12 +1,7 @@
-// src/api/increment.js
 import { createClient } from 'redis';
 
 let client;
 
-/**
- * Lazily initialize and cache the Redis client across invocations.
- * Vercel may reuse the same lambda instance.
- */
 async function getRedisClient() {
   if (!client) {
     client = createClient({
@@ -16,24 +11,20 @@ async function getRedisClient() {
       },
       password: process.env.REDIS_PASSWORD,
     });
-    // suppress the “unhandled” warning
-    client.on('error', () => {});
+    client.on('error', () => {}); // silence errors
     await client.connect();
   }
   return client;
 }
 
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== 'POST') {
-    res.status(405).end();
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
     return;
   }
 
   const redis = await getRedisClient();
-  // Use key “Converted to Pdfs”; initialize to 0 if missing, then INCR
-  await redis.incr('Converted to Pdfs');
-
-  // We don’t need to return any JSON—just a 204 No Content
-  res.status(204).end();
+  await redis.incr('Converted to Pdfs');  // bump your counter
+  res.status(204).end();                  // no content
 }
