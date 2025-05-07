@@ -137,6 +137,13 @@ const handleGetPDF = async () => {
   // pdf.save('markdown-fullscreen.pdf');
   const filename = (pdfName.trim() || 'markdown to pdf') + '.pdf';
   pdf.save(filename);
+
+  // counting converted to pdfs
+  fetch('/api/increment', { method: 'POST' })
+  .catch(err => {
+    // optional: log error, but we don't block the user
+    console.error('Failed to bump Redis counter:', err);
+  });
 };
 
 
